@@ -2,5 +2,5 @@
 'use strict';
 
 module.exports = {
-  name: 'ice-select'
+  name: '@addepar/ice-select'
 };

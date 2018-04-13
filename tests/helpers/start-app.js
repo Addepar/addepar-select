@@ -8,6 +8,7 @@ export default function startApp(attrs) {
   attributes = merge(attributes, attrs); // use defaults, but you can override;
 
   return run(() => {
+    // eslint-disable-next-line
     const application = Application.create(attributes);
     application.setupForTesting();
     application.injectTestHelpers();

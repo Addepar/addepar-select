@@ -1,6 +1,8 @@
-# ice-select
+[![Build Status](https://travis-ci.org/Addepar/addepar-select.svg?branch=master)](https://travis-ci.org/Addepar/addepar-select)
 
-This README outlines the details of collaborating on this Ember addon.
+# addepar-select
+
+An Ember-CLI addon for a select component with close APIs with [ember-power-select](https://github.com/cibernox/ember-power-select) but compatible with Ember 1.12.
 
 ## Installation
 

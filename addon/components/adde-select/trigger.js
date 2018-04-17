@@ -5,6 +5,7 @@ import layout from '../../templates/components/adde-select/trigger';
 
 export default class AddeSelectTriggerComponent extends Component {
   layout = layout;
+  classNames = ['adde-select-trigger'];
 
   /**
    * Text to display in the trigger of the component while no option is selected

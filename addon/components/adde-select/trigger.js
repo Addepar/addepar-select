@@ -5,6 +5,7 @@ import layout from '../../templates/components/adde-select/trigger';
 
 export default class AddeSelectTriggerComponent extends Component {
   layout = layout;
+  // TODO is this class necessary for styling?
   classNames = ['adde-select-trigger'];
 
   /**

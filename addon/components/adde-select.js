@@ -23,6 +23,20 @@ export default class AddeSelectComponent extends Component {
   placeholder;
 
   /**
+   * Enable/disable the search box
+   */
+  @argument
+  @type('boolean')
+  searchEnabled = true;
+
+  /**
+   * Text to display in the search of the component while nothing is there
+   */
+  @argument
+  @type(optional('string'))
+  searchPlaceholder;
+
+  /**
    * The component to render instead of the default one inside the trigger
    */
   @argument

@@ -23,7 +23,7 @@ export default class AddeSelectComponent extends Component {
   placeholder;
 
   /**
-   * Enable/disable the search box
+   * Enable/disable the search box when opening the dropdown
    */
   @argument
   @type('boolean')

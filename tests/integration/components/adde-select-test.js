@@ -1,6 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
+import PageObject, { collection } from 'ember-classy-page-object';
 import AddeSelectPage from '@addepar/select/test-support/pages/adde-select';
 
 moduleForComponent('adde-select', 'Integration | Component | adde select', {
@@ -75,4 +76,32 @@ test('A placeholder can be defined', function(assert) {
   this.placeholder = 'Type something';
   this.render(hbs`{{adde-select options=options placeholder=placeholder}}`);
   assert.equal(this.$('.adde-select-placeholder').text(), 'Type something', 'The placeholder is rendered');
+});
+
+test('Each option of the select is the result of yielding an item', async function(assert) {
+  assert.expect(4);
+
+  let select = AddeSelectPage.extend({
+    scope: '[data-test-select]',
+    dropdown: PageObject.extend({
+      content: {
+        items: collection({
+          scope: 'li'
+        })
+      }
+    })
+  }).create();
+  this.options = ['Paris', 'London', 'Tokyo'];
+  this.render(
+    hbs`
+    {{#adde-select data-test-select=true options=options as |option|}}
+      {{option}}
+    {{/adde-select}}`
+  );
+
+  await select.trigger.click();
+  assert.equal(select.dropdown.content.items.length, 3, 'There is as many options in the markup as in the supplied array');
+  assert.equal(select.dropdown.content.items.eq(0).text, 'Paris');
+  assert.equal(select.dropdown.content.items.eq(1).text, 'London');
+  assert.equal(select.dropdown.content.items.eq(2).text, 'Tokyo');
 });

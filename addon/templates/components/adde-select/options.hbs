@@ -1,6 +1,9 @@
-<ul>
-{{#each options as |opt index|}}
+{{#vertical-collection
+    items=options
+    tagName='ul'
+    estimateHeight=20
+    staticHeight=true
+    as |opt|
+}}
   <li class='adde-select-option'>{{opt}}</li>
-{{/each}}
-</ul>
-{{yield}}
+{{/vertical-collection}}

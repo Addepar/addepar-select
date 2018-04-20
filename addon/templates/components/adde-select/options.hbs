@@ -1,10 +1,8 @@
-<span>{{options.length}} options</span>
-{{debugger}}
 {{#vertical-collection
     options
     tagName='ul'
     estimateHeight=20
-    staticHeight=true
+    staticHeight=false
     as |opt|
 }}
   <li class='adde-select-option'>{{opt}}</li>

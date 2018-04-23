@@ -1,10 +1,14 @@
 {{component triggerComponent
-  placeholder=placeholder}}
+  placeholder=placeholder
+  selected=selected}}
 {{#adde-dropdown data-test-select-dropdown=true}}
   {{#if searchEnabled}}
   <div class='adde-select-search'>
     {{input type='search' placeholder=searchPlaceholder}}
   </div>
   {{/if}}
-  {{adde-select/options options=options onSelect='onSelect'}}
+  {{adde-select/options
+    options=options
+    onSelect='onSelect'
+    selected=selected}}
 {{/adde-dropdown}}

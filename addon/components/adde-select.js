@@ -52,6 +52,7 @@ export default class AddeSelectComponent extends Component {
 
   @action
   onSelect(option) {
+    this.set('selected', option);
     this.sendAction('onchange', option);
   }
 }

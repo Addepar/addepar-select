@@ -1,3 +1,7 @@
-{{#if placeholder}}
-  <span class="adde-select-placeholder">{{placeholder}}</span>
+{{#if selected}}
+  <span class="adde-select-selected-item">{{selected}}</span>
+{{else}}
+  {{#if placeholder}}
+    <span class="adde-select-placeholder">{{placeholder}}</span>
+  {{/if}}
 {{/if}}

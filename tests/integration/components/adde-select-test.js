@@ -1,7 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
+import { run } from '@ember/runloop';
 import hbs from 'htmlbars-inline-precompile';
 
-import PageObject, { collection } from 'ember-classy-page-object';
 import AddeSelectPage from '@addepar/select/test-support/pages/adde-select';
 
 moduleForComponent('adde-select', 'Integration | Component | adde select', {
@@ -82,14 +82,7 @@ test('Each option of the select is the result of yielding an item', async functi
   assert.expect(4);
 
   let select = AddeSelectPage.extend({
-    scope: '[data-test-select]',
-    dropdown: PageObject.extend({
-      content: {
-        items: collection({
-          scope: 'li'
-        })
-      }
-    })
+    scope: '[data-test-select]'
   }).create();
   this.options = ['Paris', 'London', 'Tokyo'];
   this.render(
@@ -104,4 +97,53 @@ test('Each option of the select is the result of yielding an item', async functi
   assert.equal(select.dropdown.content.items.eq(0).text, 'Paris');
   assert.equal(select.dropdown.content.items.eq(1).text, 'London');
   assert.equal(select.dropdown.content.items.eq(2).text, 'Tokyo');
+});
+
+test('If the `selected` value changes the select gets updated, but the `onchange` action doesn\'t fire', async function(assert) {
+  assert.expect(2);
+
+  let select = AddeSelectPage.extend({
+    scope: '[data-test-select]'
+  }).create();
+  this.options = ['Paris', 'London', 'Tokyo'];
+  this.selected = null;
+  this.foo = function() {
+    assert.ok(false, 'The onchange action is never fired');
+  };
+
+  this.render(
+    hbs`
+    {{#adde-select data-test-select=true options=options onchange=foo selected=selected as |option|}}
+      {{option}}
+    {{/adde-select}}`
+  );
+
+  run(() => this.set('selected', 'London'));
+  assert.equal(select.trigger.text, 'London', 'The "London" element is selected');
+  await select.trigger.click();
+  assert.equal(select.dropdown.content.selected.text, 'London', 'The proper option gets highlighted');
+});
+
+test('If the user selects a value and later on the selected value changes from the outside, the components updates too', async function(assert) {
+  assert.expect(3);
+
+  let select = AddeSelectPage.extend({
+    scope: '[data-test-select]'
+  }).create();
+  this.options = ['Paris', 'London', 'Tokyo'];
+  this.selected = null;
+  this.render(
+    hbs`
+    {{#adde-select data-test-select=true options=options selected=selected as |option|}}
+      {{option}}
+    {{/adde-select}}`
+  );
+
+  assert.equal(select.trigger.text, '', 'Nothing is selected');
+
+  await select.trigger.click();
+  await select.dropdown.content.items.eq(2).click();
+  assert.equal(select.trigger.text, 'Tokyo', '"Tokyo" has been selected');
+  run(() => this.set('selected', 'London'));
+  assert.equal(select.trigger.text, 'London', '"London" has been selected because a change came from the outside');
 });

@@ -14,4 +14,11 @@ export default class AddeSelectTriggerComponent extends Component {
   @argument
   @type(optional('string'))
   placeholder;
+
+  /**
+   * The selected option (or collection of options in multiple mode)
+   */
+  @argument
+  // @type(optional('string'))
+  selected;
 }

@@ -2,11 +2,18 @@ import Component from '@ember/component';
 import { argument } from '@ember-decorators/argument';
 import { type, optional } from '@ember-decorators/argument/type';
 import { required } from '@ember-decorators/argument/validation';
+import { action } from '@ember-decorators/object';
 import layout from '../templates/components/adde-select';
 
 
 export default class AddeSelectComponent extends Component {
   layout = layout;
+
+  /**
+   * The function to be invoked when the user selects or unselects an option
+   */
+  @argument
+  onchange;
 
   /**
    * Collection of options to display in the component
@@ -42,4 +49,9 @@ export default class AddeSelectComponent extends Component {
   @argument
   @type('string')
   triggerComponent = 'adde-select/trigger';
+
+  @action
+  onSelect(option) {
+    this.sendAction('onchange', option);
+  }
 }

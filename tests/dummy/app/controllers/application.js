@@ -5,6 +5,7 @@ export default class ApplicationController extends Controller {
 
   actions = {
     onSelectChanged(option) {
+      // eslint-disable-next-line
       console.log('The user selected', option);
     }
   };

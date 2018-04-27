@@ -1,7 +1,14 @@
 import PageObject, { collection } from 'ember-classy-page-object';
 import { findElement } from 'ember-classy-page-object/extend';
+import { GTE_EMBER_1_13 } from 'ember-compatibility-helpers';
 import AddeDropdownPage from '@addepar/pop-menu/test-support/pages/adde-dropdown';
 import AddeTriggerPage from './adde-select/adde-trigger';
+
+let selectedScope = '.adde-select-option[aria-selected';
+if (!GTE_EMBER_1_13) {
+  selectedScope += '="true"';
+}
+selectedScope += ']';
 
 export default PageObject.extend({
   dropdown: AddeDropdownPage.extend({
@@ -19,7 +26,7 @@ export default PageObject.extend({
         }
       }),
       selected: PageObject.extend({
-        scope: '.adde-select-option[aria-selected]'
+        scope: selectedScope
       })
     }
   }),

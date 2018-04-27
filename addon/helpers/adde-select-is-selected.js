@@ -1,4 +1,4 @@
-import { helper } from '@ember/component/helper';
+import { helper } from './component-helper';
 import { isEqual } from '@ember/utils';
 
 export function addeSelectIsSelected([option, selected]/* , hash*/) {

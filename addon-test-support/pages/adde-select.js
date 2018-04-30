@@ -20,8 +20,7 @@ export default PageObject.extend({
       }),
       search: PageObject.extend({
         scope: '.adde-select-search input',
-        // TODO make that a property not a function
-        placeholderText() {
+        get placeholderText() {
           return findElement(this).placeholder;
         }
       }),

@@ -63,7 +63,7 @@ test('If a `searchPlaceholder` is provided, it shows on the searchbox of single 
   this.render(hbs`{{adde-select options=options searchPlaceholder=searchPlaceholder}}`);
 
   await select.trigger.click();
-  assert.equal(select.dropdown.content.search.placeholderText(), 'Search something', 'The searchbox has the proper placeholder');
+  assert.equal(select.dropdown.content.search.placeholderText, 'Search something', 'The searchbox has the proper placeholder');
 });
 
 test('A placeholder can be defined', function(assert) {

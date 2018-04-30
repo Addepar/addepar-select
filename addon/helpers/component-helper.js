@@ -8,7 +8,7 @@ export function helper(fn) {
     return componentHelper(fn);
   } else {
     let compatFn = function() {
-      fn.call(null, arguments);
+      return fn.call(null, arguments);
     };
     return Ember.Handlebars.makeBoundHelper(compatFn);
   }

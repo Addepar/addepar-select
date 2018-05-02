@@ -147,3 +147,41 @@ test('If the user selects a value and later on the selected value changes from t
   run(() => this.set('selected', 'London'));
   assert.equal(select.trigger.text, 'London', '"London" has been selected because a change came from the outside');
 });
+
+test('The dropdown closes after selecting an option with the mouse', async function(assert) {
+  assert.expect(4);
+
+  let select = AddeSelectPage.extend({
+    scope: '[data-test-select]'
+  }).create();
+  this.options = ['Paris', 'London', 'Tokyo'];
+  this.render(
+    hbs`{{adde-select data-test-select=true options=options}}`
+  );
+
+  assert.notOk(select.dropdown.isOpen, 'Dropdown is not rendered');
+  await select.trigger.click();
+  assert.ok(select.dropdown.isOpen, 'Dropdown is rendered');
+  await select.dropdown.content.items.eq(2).click();
+  assert.equal(select.trigger.text, 'Tokyo', '"Tokyo" has been selected');
+  assert.notOk(select.dropdown.isOpen, 'Dropdown is now closed');
+});
+
+test('If the user passes `closeOnSelect=false` the dropdown remains visible after selecting an option with the mouse', async function(assert) {
+  assert.expect(4);
+
+  let select = AddeSelectPage.extend({
+    scope: '[data-test-select]'
+  }).create();
+  this.options = ['Paris', 'London', 'Tokyo'];
+  this.render(
+    hbs`{{adde-select data-test-select=true options=options closeOnSelect=false}}`
+  );
+
+  assert.notOk(select.dropdown.isOpen, 'Dropdown is not rendered');
+  await select.trigger.click();
+  assert.ok(select.dropdown.isOpen, 'Dropdown is rendered');
+  await select.dropdown.content.items.eq(2).click();
+  assert.equal(select.trigger.text, 'Tokyo', '"Tokyo" has been selected');
+  assert.ok(select.dropdown.isOpen, 'Dropdown is still rendered');
+});

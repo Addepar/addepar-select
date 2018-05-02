@@ -5,6 +5,7 @@ import AddeDropdownPage from '@addepar/pop-menu/test-support/pages/adde-dropdown
 import AddeTriggerPage from './adde-select/adde-trigger';
 
 let selectedScope = '.adde-select-option[aria-selected';
+// TODO probably needed for Ember 1.13 and Ember 2 but not Ember 2.4
 if (!GTE_EMBER_1_13) {
   selectedScope += '="true"';
 }
